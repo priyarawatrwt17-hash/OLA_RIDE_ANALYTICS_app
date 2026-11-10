@@ -90,17 +90,10 @@ def load_data():
     return data
 
 def run_sql_query(query):
-    connection = pymysql.connect(
-        host=st.secrets["mysql"]["host"],
-        user=st.secrets["mysql"]["user"],
-        password=st.secrets["mysql"]["password"],
-        database=st.secrets["mysql"]["database"],
-        port=st.secrets["mysql"]["port"]
-    )
-
-    result = pd.read_sql(query, connection)
+    connection = sqlite3.connect(":memory:")
+    df.to_sql("ola_bookings", connection, index=False, if_exists="replace")
+    result = pd.read_sql_query(query, connection)
     connection.close()
-
     return result
 
 df = load_data()
