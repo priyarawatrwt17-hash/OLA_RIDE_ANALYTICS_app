@@ -1076,13 +1076,8 @@ if st.button("Run SQL Query"):
     query = sql_questions[selected_question]
 
     try:
-        connection = pymysql.connect(
-            host=st.secrets["mysql"]["host"],
-            user=st.secrets["mysql"]["user"],
-            password=st.secrets["mysql"]["password"],
-            database=st.secrets["mysql"]["database"],
-            port=st.secrets["mysql"]["port"]
-        )
+      connection = sqlite3.connect(":memory:")
+df.to_sql("ola_bookings", connection, index=False, if_exists="replace")
 
         result = pd.read_sql(query, connection)
         connection.close()
