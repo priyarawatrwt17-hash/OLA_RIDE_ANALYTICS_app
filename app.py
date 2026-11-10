@@ -86,18 +86,7 @@ header[data-testid="stHeader"] {
 # --------------------------------
 @st.cache_data
 def load_data():
-    connection = pymysql.connect(
-        host=st.secrets["mysql"]["host"],
-        user=st.secrets["mysql"]["user"],
-        password=st.secrets["mysql"]["password"],
-        database=st.secrets["mysql"]["database"],
-        port=st.secrets["mysql"]["port"]
-    )
-
-    query = "SELECT * FROM ola_bookings"
-    data = pd.read_sql(query, connection)
-    connection.close()
-
+    data = pd.read_csv("ola_bookings.csv")
     return data
 
 def run_sql_query(query):
