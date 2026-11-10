@@ -1,7 +1,7 @@
 
 import streamlit as st
 import pandas as pd
-import pymysql
+import sqlite3
 import plotly.express as px
 
 # --------------------------------
