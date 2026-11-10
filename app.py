@@ -1074,12 +1074,11 @@ selected_question = st.selectbox(
 
 if st.button("Run SQL Query"):
     query = sql_questions[selected_question]
-
     try:
-      connection = sqlite3.connect(":memory:")
-df.to_sql("ola_bookings", connection, index=False, if_exists="replace")
+        connection = sqlite3.connect(":memory:")
+        df.to_sql("ola_bookings", connection, index=False, if_exists="replace")
 
-        result = pd.read_sql(query, connection)
+        result = pd.read_sql_query(query, connection)
         connection.close()
 
         st.dataframe(result, use_container_width=True)
